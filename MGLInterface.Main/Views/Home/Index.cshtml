@@ -1,0 +1,93 @@
+﻿@model MGLInterface.Main.Models.FileModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!--TITLE-->
+<div class="title">
+    <h5 style="color:blue;font-weight:bold;">Medical Guideline Library</h5>
+</div>
+
+<!--SEARCH MODULE-->
+<div class="row">
+    <div style="float:left;" class="form-group col-md-8">
+        <input style="display:inline; max-width:94%;" type="text" placeholder="search modules" class="form-control" />
+        <button class="btn btn-default"><i class="fa fa-search"></i></button>
+    </div>
+</div>
+
+<!--PANEL-->
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 style="font-weight:bold;">A B C D E</h6>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        Panel Content
+                    </div>
+                    <div class="col-md-6">
+                        Panel Content
+                        @for (int i = 0; i <= 10; i++)
+                        {
+                            <li>@i</li>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:30px;" class="panel panel-default">
+                <div class="panel-heading">
+                    <h6 style="font-weight:bold;">Latest Update</h6>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-6">
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" , @accept=".pdf"})
+                                        @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Upload" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10 text-success">
+                                        @ViewBag.UploadStatus
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        Panel Content
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--SIDE MENU-->
+    <div class="col-md-4">
+        <h6 style="font-weight:bold;">Specialization</h6>
+        <h6 style="font-weight:bold;">Chest</h6>
+    </div>
+</div>
+
+<!--NOTES-->
+<button class="btn btn-primary">Export All Modules</button>
+<h6 style="font-weight:bold; margin-top:50px;">Note:</h6>
+<h6>Latest Update: Update/created in recent 3 months</h6>
